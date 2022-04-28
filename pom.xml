@@ -20,7 +20,7 @@
 
 
 
-    <groupId>org.AvignonUniversite</groupId>
+    <groupId>fr.univavignon.pokedex.api</groupId>
     <artifactId>ceri-m1-techniques-de-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
