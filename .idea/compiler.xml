@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ceri-m1-techniques-de-test" target="15" />
+      <module name="ceri-m1-techniques-de-test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
