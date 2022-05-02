@@ -12,14 +12,9 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
-    @Mock
-    IPokedexFactory mPokedexFactory;
-
-    @Mock
-    IPokemonTrainerFactory mPokemonTrainerFactory;
-
-    @Mock
-    IPokedex mPokedex;
+    @Mock IPokedexFactory mPokedexFactory;
+    @Mock IPokemonTrainerFactory mPokemonTrainerFactory;
+    @Mock IPokedex mPokedex;
 
     Team mTeam;
 
@@ -39,9 +34,6 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
                         return new PokemonTrainer(name, mTeam, mPokedex);
                     }
                 });
-
-
-        //String name, Team team, IPokedexFactory pokedexFactory)
     }
 
     @Override
@@ -56,6 +48,20 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
         String nameTest = "name";
         PokemonTrainer pokemonTrainer = mPokemonTrainerFactory.createTrainer(nameTest, mTeam, mPokedexFactory);
         Assert.assertEquals(nameTest, pokemonTrainer.getName());
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnTrainerWithCorrectTeam() {
+        PokemonTrainer pokemonTrainer = mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory);
+        Assert.assertEquals(mTeam, pokemonTrainer.getTeam());
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnPokedex() {
+        PokemonTrainer pokemonTrainer = mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory);
+        Assert.assertTrue(pokemonTrainer.getPokedex() instanceof IPokedex);
     }
 
 

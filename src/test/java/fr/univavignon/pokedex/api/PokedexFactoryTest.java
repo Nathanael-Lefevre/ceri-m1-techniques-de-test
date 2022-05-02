@@ -11,11 +11,10 @@ import org.mockito.stubbing.Answer;
 import static org.mockito.Mockito.when;
 
 public class PokedexFactoryTest implements IPokedexFactoryTest {
-    @Mock
-    IPokedexFactory mPokedexFactory;
-    IPokemonMetadataProvider mMetadataProvider;
-    IPokemonFactory mPokemonFactory;
-    IPokedex mPokedex;
+    @Mock IPokedexFactory mPokedexFactory;
+    @Mock IPokemonMetadataProvider mMetadataProvider;
+    @Mock IPokemonFactory mPokemonFactory;
+    @Mock IPokedex mPokedex;
 
     @Override
     @Before

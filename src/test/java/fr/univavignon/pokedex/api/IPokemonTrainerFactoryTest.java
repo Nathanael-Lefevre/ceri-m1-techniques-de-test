@@ -12,4 +12,10 @@ public interface IPokemonTrainerFactoryTest {
 
     @Test
     public void testShouldReturnTrainerWithCorrectName();
+
+    @Test
+    public void testShouldReturnTrainerWithCorrectTeam();
+
+    @Test
+    public void testShouldReturnPokedex();
 }
