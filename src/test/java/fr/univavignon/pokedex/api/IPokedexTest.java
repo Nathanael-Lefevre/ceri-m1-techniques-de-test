@@ -10,42 +10,44 @@ public interface IPokedexTest {
     /**
      * Initialisation de la preuve par récurrence du fonctionnement de size()
      */
-    //@Test
+    /*
+    @Test
     public void testShouldReturn0AsNumberOfPokemonInPokedex();
 
-    //@Test
+    @Test
     public void testShouldAddPokemonToPokedex();
 
-    //@Test
+    @Test
     public void testShouldReturnIndexOfNewlyAddedPokemon();
 
     /**
      * Preuve par récurrence du fonctionnement de size()
-     */
-    //@Test
+     * /
+    @Test
     public void testShouldReturnIncrementedSizeAfterPokemonAdd();
 
-    //@Test
+    @Test
     public void testShouldReturnPokemonAtCorrectIndex() throws PokedexException;
 
-    //@Test
+    @Test
     public void testShouldThrowPokedexExceptionWhenIndexIsInvalid() throws PokedexException;
 
-    //@Test
+    @Test
     public void testShouldReturnPockemonList();
 
-    //@Test
+    @Test
     public void testPokemonListShouldNotBeModifiable();
 
-    //@Test
+    @Test
     public void testShouldReturnPokemonListSortedByCP();
 
-    //@Test
+    @Test
     public void testShouldReturnPokemonListSortedByINDEX();
 
-    //@Test
+    @Test
     public void testShouldReturnPokemonListSortedByNAME();
 
-    //@Test
+    @Test
     public void testSortedPokemonListShouldNotBeModifiable();
+    */
 }
