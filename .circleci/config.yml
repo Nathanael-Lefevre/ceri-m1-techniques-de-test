@@ -28,7 +28,7 @@ jobs:
           command: mvn test
       # Upload tests results on codecov
       - run:
-        name : deploy
+        name : Deploy
         command: codecov
 
 # Invoke jobs via workflows
