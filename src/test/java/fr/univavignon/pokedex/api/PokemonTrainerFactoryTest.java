@@ -8,13 +8,10 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
-    @Mock
-    Team mTeam;
-
     @Mock
     IPokedexFactory mPokedexFactory;
 
@@ -22,20 +19,24 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
     IPokemonTrainerFactory mPokemonTrainerFactory;
 
     @Mock
-    PokemonTrainer mPokemonTrainer;
+    IPokedex mPokedex;
+
+    Team mTeam;
 
     @Override
     @Before
     public void init() throws PokedexException {
-        mTeam = Mockito.mock(Team.class);
         mPokedexFactory = Mockito.mock(IPokedexFactory.class);
         mPokemonTrainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
-        mPokemonTrainer = Mockito.mock(PokemonTrainer.class);
+        mPokedex = Mockito.mock(IPokedex.class);
 
-        when(mPokemonTrainerFactory.createTrainer(any(String.class), mTeam, mPokedexFactory)).then(
+        mTeam = Team.INSTINCT;
+
+        when(mPokemonTrainerFactory.createTrainer(anyString(), eq(mTeam), eq(mPokedexFactory))).then(
                 new Answer<PokemonTrainer>() {
                     public PokemonTrainer answer(InvocationOnMock invocation) {
-                        return mPokemonTrainer;
+                        String name = invocation.getArgument(0);
+                        return new PokemonTrainer(name, mTeam, mPokedex);
                     }
                 });
 
@@ -44,8 +45,18 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
     }
 
     @Override
-    //@Test
+    @Test
     public void testShouldReturnTrainer() {
         Assert.assertTrue(mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory) instanceof PokemonTrainer);
     }
+
+    @Override
+    @Test
+    public void testShouldReturnTrainerWithCorrectName() {
+        String nameTest = "name";
+        PokemonTrainer pokemonTrainer = mPokemonTrainerFactory.createTrainer(nameTest, mTeam, mPokedexFactory);
+        Assert.assertEquals(nameTest, pokemonTrainer.getName());
+    }
+
+
 }

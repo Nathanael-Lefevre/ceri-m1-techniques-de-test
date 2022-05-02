@@ -9,4 +9,7 @@ public interface IPokemonTrainerFactoryTest {
 
     @Test
     public void testShouldReturnTrainer();
+
+    @Test
+    public void testShouldReturnTrainerWithCorrectName();
 }
