@@ -1,3 +1,14 @@
+### Continuous Integration
+[![CircleCI](https://circleci.com/gh/Nathanael-Lefevre/ceri-m1-techniques-de-test.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs/?branch=master)
+[![codecov](https://codecov.io/gh/Nathanael-Lefevre/ceri-m1-techniques-de-test/branch/master/graph/badge.svg?token=QW3EWSAQCE)](https://codecov.io/gh/Nathanael-Lefevre/ceri-m1-techniques-de-test)
+
+_AUTHOR :_ Nathanaël Lefèvre
+
+_GROUP :_ M1 IA CLA - CMI
+
+
+
+# Original README IS FOLlOWING
 # UCE Génie Logiciel Avancé : Techniques de tests
 
 ## Introduction
