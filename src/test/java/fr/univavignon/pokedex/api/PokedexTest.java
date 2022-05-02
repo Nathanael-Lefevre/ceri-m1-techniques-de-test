@@ -89,7 +89,7 @@ public class PokedexTest implements IPokedexTest {
                     }
                 });
     }
-    /*
+
     @Override
     @Test
     public void testShouldReturn0AsNumberOfPokemonInPokedex() {
@@ -226,5 +226,4 @@ public class PokedexTest implements IPokedexTest {
         Assert.assertThrows(UnsupportedOperationException.class, () -> resSortedNameList.remove(pokemon0));
         Assert.assertThrows(UnsupportedOperationException.class, () -> resSortedNameList.add(pokemon2));
     }
-    */
 }

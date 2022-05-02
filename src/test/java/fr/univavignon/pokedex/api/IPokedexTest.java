@@ -10,7 +10,6 @@ public interface IPokedexTest {
     /**
      * Initialisation de la preuve par récurrence du fonctionnement de size()
      */
-    /*
     @Test
     public void testShouldReturn0AsNumberOfPokemonInPokedex();
 
@@ -22,7 +21,7 @@ public interface IPokedexTest {
 
     /**
      * Preuve par récurrence du fonctionnement de size()
-     * /
+     */
     @Test
     public void testShouldReturnIncrementedSizeAfterPokemonAdd();
 
@@ -49,5 +48,4 @@ public interface IPokedexTest {
 
     @Test
     public void testSortedPokemonListShouldNotBeModifiable();
-    */
 }
