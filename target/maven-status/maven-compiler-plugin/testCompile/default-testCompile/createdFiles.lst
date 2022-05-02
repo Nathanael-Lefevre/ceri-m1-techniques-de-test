@@ -1,3 +1,4 @@
+fr/univavignon/pokedex/api/PokemonTrainerFactoryTest$1.class
 fr/univavignon/pokedex/api/PokedexTest$6.class
 fr/univavignon/pokedex/api/PokedexTest$5.class
 fr/univavignon/pokedex/api/IPokemonTrainerFactoryTest.class
@@ -5,6 +6,7 @@ fr/univavignon/pokedex/api/PokedexTest$1.class
 fr/univavignon/pokedex/api/IPokemonMetadataProviderTest.class
 fr/univavignon/pokedex/api/PokedexTest.class
 fr/univavignon/pokedex/api/PokemonMetadataProviderTest$1.class
+fr/univavignon/pokedex/api/PokemonTrainerFactoryTest.class
 fr/univavignon/pokedex/api/IPokedexTest.class
 fr/univavignon/pokedex/api/PokedexTest$2.class
 fr/univavignon/pokedex/api/PokemonFactoryTest.class
