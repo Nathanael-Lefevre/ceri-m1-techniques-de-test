@@ -35,12 +35,7 @@ public interface IPokedex extends IPokemonMetadataProvider, IPokemonFactory {
 	 * @throws PokedexException If the given <tt>index</tt> is not valid.
 	 */
 	Pokemon getPokemon(int id) throws PokedexException;
-	
-	/**
-	 * Returns an unmodifiable list of all pokemons this pokedex contains.
-	 * 
-	 * @return Unmodifiable list of all pokemons.
-	 */
+
 	List<Pokemon> getPokemons();
 
 	/**
