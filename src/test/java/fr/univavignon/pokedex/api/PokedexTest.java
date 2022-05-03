@@ -55,19 +55,22 @@ public class PokedexTest implements IPokedexTest {
 
         when(mPokedex.getPokemons(PokemonComparators.CP)).then(
                 (Answer<List<Pokemon>>) invocation -> {
-                    List<Pokemon> sortedCPList = new ArrayList<>(Arrays.asList(pokemon0, pokemon1, pokemon2));
+                    List<Pokemon> sortedCPList = new ArrayList<>(Arrays.asList(pokemon1, pokemon2, pokemon0));
+                    sortedCPList.sort(PokemonComparators.CP);
                     return Collections.unmodifiableList(sortedCPList);
                 });
 
         when(mPokedex.getPokemons(PokemonComparators.INDEX)).then(
                 (Answer<List<Pokemon>>) invocation -> {
-                    List<Pokemon> sortedIndexList = new ArrayList<>(Arrays.asList(pokemon0, pokemon2, pokemon1));
+                    List<Pokemon> sortedIndexList = new ArrayList<>(Arrays.asList(pokemon2, pokemon0, pokemon1));
+                    sortedIndexList.sort(PokemonComparators.INDEX);
                     return Collections.unmodifiableList(sortedIndexList);
                 });
 
         when(mPokedex.getPokemons(PokemonComparators.NAME)).then(
                 (Answer<List<Pokemon>>) invocation -> {
-                    List<Pokemon> sortedNameList = new ArrayList<>(Arrays.asList(pokemon1, pokemon0, pokemon2));
+                    List<Pokemon> sortedNameList = new ArrayList<>(Arrays.asList(pokemon2, pokemon0, pokemon1));
+                    sortedNameList.sort(PokemonComparators.NAME);
                     return Collections.unmodifiableList(sortedNameList);
                 });
     }
