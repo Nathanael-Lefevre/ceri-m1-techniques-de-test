@@ -32,17 +32,17 @@ public class PokemonMetadataProviderTest implements IPokemonMetadataProviderTest
         this.mPokemonMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
 
         when(mPokemonMetadataProvider.getPokemonMetadata(any(Integer.class))).then(
-                new Answer<>() {
-                    public PokemonMetadata answer(InvocationOnMock invocation) throws PokedexException {
-                        Integer index = invocation.getArgument(0);
+                invocation -> {
+                    Integer index = invocation.getArgument(0);
 
-                        if (index == 0) {
-                            return metadata0;
-                        } else if (index == 133) {
-                            return metadata1;
-                        }
-                        throw new PokedexException("Aucune Métadonée n'existe pour l'index spécifié");
+                    if (index == 0) {
+                        return metadata0;
+                    } else if (index == 133) {
+                        return metadata1;
+                    } else if (index > 0 && index < 151) {
+                        return metadata1;  // Sinon on retourne une métadata valide
                     }
+                    throw new PokedexException("Aucune Métadonée n'existe pour l'index spécifié");
                 });
     }
 
@@ -55,8 +55,8 @@ public class PokemonMetadataProviderTest implements IPokemonMetadataProviderTest
 
     @Override
     @Test
-    public void testShouldThrowPokedexExceptionWhenIncorrectIndexInRequest() throws PokedexException {
+    public void testShouldThrowPokedexExceptionWhenIncorrectIndexInRequest() {
         Assert.assertThrows(PokedexException.class, () -> mPokemonMetadataProvider.getPokemonMetadata(-1));
-        Assert.assertThrows(PokedexException.class, () -> mPokemonMetadataProvider.getPokemonMetadata(2));
+        Assert.assertThrows(PokedexException.class, () -> mPokemonMetadataProvider.getPokemonMetadata(151));
     }
 }
