@@ -25,6 +25,11 @@ public class PokemonMetadataProviderTest implements IPokemonMetadataProviderTest
     private IPokemonMetadataProvider mPokemonMetadataProvider;
 
     @Before
+    public void initNonMock() {
+        mPokemonMetadataProvider = new MetadataProvider();
+    }
+
+    //@Before
     public void init() throws PokedexException {
         metadata0 = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
         metadata1 = new PokemonMetadata(133, "Aquali", 186, 168, 260);
