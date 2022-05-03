@@ -1,17 +1,10 @@
 package fr.univavignon.pokedex.api;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -26,7 +19,7 @@ public class PokemonMetadataProviderTest implements IPokemonMetadataProviderTest
 
     @Before
     public void initNonMock() {
-        mPokemonMetadataProvider = new MetadataProvider();
+        mPokemonMetadataProvider = new PokemonMetadataProvider();
     }
 
     //@Before

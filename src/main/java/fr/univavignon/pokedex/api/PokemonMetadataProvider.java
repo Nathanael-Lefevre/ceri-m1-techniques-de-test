@@ -2,7 +2,7 @@ package fr.univavignon.pokedex.api;
 
 import java.util.*;
 
-public class MetadataProvider implements IPokemonMetadataProvider {
+public class PokemonMetadataProvider implements IPokemonMetadataProvider {
     private static Map<Integer, PokemonMetadata> pokemonMetadatas;
 
     static {
