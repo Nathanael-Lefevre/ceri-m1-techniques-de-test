@@ -2,7 +2,7 @@ package fr.univavignon.pokedex.api;
 
 /**
  * Pokemon metadata POJO.
- * 
+ *
  * @author fv
  */
 public class PokemonMetadata {
@@ -24,42 +24,61 @@ public class PokemonMetadata {
 
 	/**
 	 * Default constructor.
-	 * 
-	 * @param index Pokemon index.
-	 * @param name Pokemon name.
-	 * @param attack Attack level.
-	 * @param defense Defense level.
-	 * @param stamina Stamina level.
+	 *
+	 * @param pIndex Pokemon index.
+	 * @param pName Pokemon name.
+	 * @param pAttack Attack level.
+	 * @param pDefense Defense level.
+	 * @param pStamina Stamina level.
 	 */
-	public PokemonMetadata(final int index, final String name, final int attack, final int defense, final int stamina) {
-		this.index = index;
-		this.name = name;
-		this.attack = attack;
-		this.defense = defense;
-		this.stamina = stamina;
+	public PokemonMetadata(final int pIndex,
+						   final String pName,
+						   final int pAttack,
+						   final int pDefense,
+						   final int pStamina) {
+		this.index = pIndex;
+		this.name = pName;
+		this.attack = pAttack;
+		this.defense = pDefense;
+		this.stamina = pStamina;
 	}
-	
-	/** Index getter. **/
+
+	/** Index getter.
+	 *
+	 * @return Pokemon index.
+	 * **/
 	public int getIndex() {
 		return index;
 	}
-	
-	/** Name getter.**/
+
+	/** Name getter.
+	 *
+	 * @return Pokemon name.
+	 * **/
 	public String getName() {
 		return name;
 	}
 
-	/** Attack level getter. **/
+	/** Attack level getter.
+	 *
+	 * @return Pokemon attack.
+	 * **/
 	public int getAttack() {
 		return attack;
 	}
 
-	/** Defense level getter. **/
+	/** Defense level getter.
+	 *
+	 * @return Pokemon defense.
+	 * **/
 	public int getDefense() {
 		return defense;
 	}
 
-	/** Stamina level getter. **/
+	/** Stamina level getter.
+	 *
+	 * @return Pokemon stamina.
+	 * **/
 	public int getStamina() {
 		return stamina;
 	}
