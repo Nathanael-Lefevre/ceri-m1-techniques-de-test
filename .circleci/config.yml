@@ -68,7 +68,7 @@ jobs:
       # Grant access to circle CI ssh key for github
       - add_ssh_keys:
           fingerprints:
-            - "cb:b3:4f:40:62:1f:fb:cb:01:71:50:d0:b3:c9:3e:aa"
+            - "d4:60:20:ea:1c:0e:31:08:d9:f3:99:04:3d:a0:b5:ba"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist target/apidocs
