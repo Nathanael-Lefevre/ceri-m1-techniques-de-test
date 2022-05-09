@@ -9,7 +9,7 @@ orbs:
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   # job1
-  build-and-test:
+  build-docs-and-test:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # Be sure to update the Docker image tag below to openjdk version of your application.
@@ -25,6 +25,10 @@ jobs:
       - run:
           name: Build
           command: mvn -B -DskipTests clean package
+      # persist javadoc
+      - persist_to_workspace:
+          root: target/apidocs
+          paths: html
       # Then run your tests!
       - run:
           name: Test
@@ -44,20 +48,6 @@ jobs:
           name: Checkstyle
           command: mvn site
 
-  # job 3
-  docs-build:
-    docker:
-      - image: cimg/openjdk:15.0
-    steps:
-      # Checkout the code as the first step.
-      - checkout
-      # javadoc
-      - run:
-          name: Javadoc
-          command: mvn install
-      - persist_to_workspace:
-          root: target/apidocs
-          paths: html
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -65,15 +55,11 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build-and-test:
+      - build-docs-and-test:
         filters:
           branches:
             only: master
       - checkstyle:
-          filters:
-            branches:
-              only: master
-      - docs-build:
           filters:
             branches:
               only: master
