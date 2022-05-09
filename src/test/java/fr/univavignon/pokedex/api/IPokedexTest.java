@@ -3,49 +3,52 @@ package fr.univavignon.pokedex.api;
 import org.junit.Before;
 import org.junit.Test;
 
-public interface IPokedexTest {
+public interface IPokedexTest extends IPokemonMetadataProviderTest, IPokemonFactoryTest{
     @Before
-    public void init() throws PokedexException;
+    void init() throws PokedexException;
 
     /**
      * Initialisation de la preuve par récurrence du fonctionnement de size()
      */
     @Test
-    public void testShouldReturn0AsNumberOfPokemonInPokedex();
+    void testShouldReturn0AsNumberOfPokemonInPokedex();
 
     @Test
-    public void testShouldAddPokemonToPokedex();
+    void testShouldAddPokemonToPokedex();
 
     @Test
-    public void testShouldReturnIndexOfNewlyAddedPokemon();
+    void testShouldReturnIndexOfNewlyAddedPokemon();
 
     /**
      * Preuve par récurrence du fonctionnement de size()
      */
     @Test
-    public void testShouldReturnIncrementedSizeAfterPokemonAdd();
+    void testShouldReturnIncrementedSizeAfterPokemonAdd();
 
     @Test
-    public void testShouldReturnPokemonAtCorrectIndex() throws PokedexException;
+    void testShouldReturnPokemonAtCorrectIndex() throws PokedexException;
 
     @Test
-    public void testShouldThrowPokedexExceptionWhenIndexIsInvalid() throws PokedexException;
+    void testShouldThrowPokedexExceptionWhenIndexIsInvalid() throws PokedexException;
 
     @Test
-    public void testShouldReturnPockemonList();
+    void testShouldReturnPockemonList();
 
     @Test
-    public void testPokemonListShouldNotBeModifiable();
+    void testPokemonListShouldNotBeModifiable();
 
     @Test
-    public void testShouldReturnPokemonListSortedByCP();
+    void testShouldReturnPokemonListSortedByCP();
 
     @Test
-    public void testShouldReturnPokemonListSortedByINDEX();
+    void testShouldReturnPokemonListSortedByINDEX();
 
     @Test
-    public void testShouldReturnPokemonListSortedByNAME();
+    void testShouldReturnPokemonListSortedByNAME();
 
     @Test
-    public void testSortedPokemonListShouldNotBeModifiable();
+    void testSortedPokemonListShouldNotBeModifiable();
+
+    @Test
+    void testShouldReturnPokemonWithCorrectStats();
 }

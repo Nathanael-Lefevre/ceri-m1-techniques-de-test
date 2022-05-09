@@ -5,14 +5,14 @@ import org.junit.Test;
 
 public interface IPokemonFactoryTest {
     @Before
-    public void init() throws PokedexException;
+    void init() throws PokedexException;
 
     @Test
-    public void testShouldReturnPokemon();
+    void testShouldReturnPokemon();
 
     @Test
-    public void testShouldReturnPokemonWithCorrectStats();
+    void testShouldReturnPokemonWithCorrectStats();
 
     @Test
-    public void testShouldThrowPokedexException();
+    void testShouldReturnNullWhenPokedexException();
 }

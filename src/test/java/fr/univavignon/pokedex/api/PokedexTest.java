@@ -18,6 +18,8 @@ public class PokedexTest implements IPokedexTest {
     private Pokemon pokemon0;
     private Pokemon pokemon1;
     private Pokemon pokemon2;
+    private PokemonMetadata metadata0;
+    private PokemonMetadata metadata1;
 
     @Before
     public void initNonMock() {
@@ -38,7 +40,47 @@ public class PokedexTest implements IPokedexTest {
         pokemon1 = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 1.);
         pokemon2 = new Pokemon(6, "Carapuce", 44, 65, 0, 3310, 202, 5000, 4, 1.);
 
+        metadata0 = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
+        metadata1 = new PokemonMetadata(133, "Aquali", 186, 168, 260);
+
         mPokedex = Mockito.mock(IPokedex.class);
+
+        when(mPokedex.getPokemonMetadata(any(Integer.class))).then(
+                invocation -> {
+                    Integer index = invocation.getArgument(0);
+
+                    if (index == 0) {
+                        return metadata0;
+                    } else if (index == 1) {
+                        return metadata1;
+                    } else if (index > 0 && index < 151) {
+                        return metadata1;  // Sinon on retourne une métadata valide
+                    }
+                    throw new PokedexException("Aucune Métadonée n'existe pour l'index spécifié");
+                });
+
+        when(mPokedex.createPokemon(any(Integer.class), any(Integer.class), any(Integer.class), any(Integer.class), any(Integer.class))).then(
+                (Answer<Pokemon>) invocation -> {
+                    Integer index = invocation.getArgument(0);
+                    if (index == -1) {
+                        return null;
+                    }
+                    String name = metadata0.getName();
+                    int attack = metadata0.getAttack();
+                    int defense = metadata0.getDefense();
+                    int stamina = metadata0.getStamina();
+                    return new Pokemon(0, name, attack, defense, stamina, 613, 64, 4000, 4, .56);
+                }).then((Answer<Pokemon>) invocation -> {
+                    Integer index = invocation.getArgument(0);
+                    if (index == -1) {
+                        return null;
+                    }
+                    String name = metadata0.getName();
+                    int attack = metadata0.getAttack() + 15;
+                    int defense = metadata0.getDefense() + 15;
+                    int stamina = metadata0.getStamina() + 15;
+                    return new Pokemon(0, name, attack, defense, stamina, 613, 64, 4000, 4, 1);
+                });
 
         when(mPokedex.size()).thenAnswer(
                 (Answer<Integer>) invocation -> mPokemonList.size());
@@ -84,6 +126,54 @@ public class PokedexTest implements IPokedexTest {
                     sortedNameList.sort(PokemonComparators.NAME);
                     return Collections.unmodifiableList(sortedNameList);
                 });
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnPokemonMetadataCorrespondingToRequestedIndex() throws PokedexException {
+        mPokedex.addPokemon(pokemon0);
+        mPokedex.addPokemon(pokemon1);
+        Assert.assertEquals(0, mPokedex.getPokemonMetadata(0).getIndex());
+        Assert.assertEquals(133, mPokedex.getPokemonMetadata(1).getIndex());
+    }
+
+    @Override
+    @Test
+    public void testShouldThrowPokedexExceptionWhenIncorrectIndexInRequest() {
+        Assert.assertThrows(PokedexException.class, () -> mPokedex.getPokemonMetadata(-1));
+        Assert.assertThrows(PokedexException.class, () -> mPokedex.getPokemonMetadata(151));
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnPokemon() {
+        Assert.assertNotNull(mPokedex.createPokemon(0, 613, 64, 4000, 4));
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnPokemonWithCorrectStats() {
+        Pokemon actualPokemon;
+        for (int i = 0; i < 3; i++) {
+            actualPokemon = mPokedex.createPokemon(0, 613, 64, 4000, 4);
+
+            Assert.assertEquals(pokemon0.getIndex(), actualPokemon.getIndex());
+            Assert.assertEquals(pokemon0.getName(), actualPokemon.getName());
+            Assert.assertTrue(actualPokemon.getAttack() - pokemon0.getAttack() <= 15);
+            Assert.assertTrue(actualPokemon.getDefense() - pokemon0.getDefense() <= 15);
+            Assert.assertTrue(actualPokemon.getStamina() - pokemon0.getStamina() <= 15);
+            Assert.assertEquals(pokemon0.getCp(), actualPokemon.getCp());
+            Assert.assertEquals(pokemon0.getHp(), actualPokemon.getHp());
+            Assert.assertEquals(pokemon0.getDust(), actualPokemon.getDust());
+            Assert.assertEquals(pokemon0.getCandy(), actualPokemon.getCandy());
+            Assert.assertTrue(actualPokemon.getIv() >= 0 && actualPokemon.getIv() <= 1);
+        }
+    }
+
+    @Override
+    @Test
+    public void testShouldReturnNullWhenPokedexException() {
+        Assert.assertNull(mPokedex.createPokemon(-1, 613, 64, 4000, 4));
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
+import static org.mockito.ArgumentMatchers.any;
 
 import static org.mockito.Mockito.when;
 
@@ -29,14 +30,22 @@ public class PokemonFactoryTest implements IPokemonFactoryTest{
         metadata0 = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
         //pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
 
-        when(mPokemonFactory).then(
+        when(mPokemonFactory.createPokemon(any(Integer.class), any(Integer.class), any(Integer.class), any(Integer.class), any(Integer.class))).then(
                 (Answer<Pokemon>) invocation -> {
+                    Integer index = invocation.getArgument(0);
+                    if (index == -1) {
+                        return null;
+                    }
                     String name = metadata0.getName();
                     int attack = metadata0.getAttack();
                     int defense = metadata0.getDefense();
                     int stamina = metadata0.getStamina();
                     return new Pokemon(0, name, attack, defense, stamina, 613, 64, 4000, 4, .56);
                 }).then((Answer<Pokemon>) invocation -> {
+                    Integer index = invocation.getArgument(0);
+                    if (index == -1) {
+                        return null;
+                    }
                     String name = metadata0.getName();
                     int attack = metadata0.getAttack() + 15;
                     int defense = metadata0.getDefense() + 15;
@@ -73,7 +82,7 @@ public class PokemonFactoryTest implements IPokemonFactoryTest{
 
     @Override
     @Test
-    public void testShouldThrowPokedexException() {
+    public void testShouldReturnNullWhenPokedexException() {
         Assert.assertNull(mPokemonFactory.createPokemon(-1, 613, 64, 4000, 4));
     }
 }
