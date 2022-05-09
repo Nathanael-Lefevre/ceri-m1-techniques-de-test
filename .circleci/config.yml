@@ -27,8 +27,8 @@ jobs:
           command: mvn -B -DskipTests clean package
       # persist javadoc
       - persist_to_workspace:
-          root: target/apidocs
-          paths: html
+          root: target
+          paths: apidocs
       # Then run your tests!
       - run:
           name: Test
@@ -48,6 +48,24 @@ jobs:
           name: Checkstyle
           command: mvn site
 
+  # job 3
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "ci-build@klukas.net"
+            git config user.name "ci-build"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dist target/apidocs
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -60,6 +78,12 @@ workflows:
           branches:
             only: master
       - checkstyle:
+          filters:
+            branches:
+              only: master
+      - docs-deploy:
+          requires:
+            - build-docs-and-test
           filters:
             branches:
               only: master
