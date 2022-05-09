@@ -57,14 +57,21 @@ jobs:
       - attach_workspace:
           at: target
       - run:
+          name: Disable jekyll builds
+          command: touch target/apidocs/.nojekyll
+      - run:
           name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
-            git config user.email "ci-build@klukas.net"
+            git config user.email "ci-build@NL.fr"
             git config user.name "ci-build"
+      # Grant access to circle CI ssh key for github
+      - add_ssh_keys:
+          fingerprints:
+            - "cb:b3:4f:40:62:1f:fb:cb:01:71:50:d0:b3:c9:3e:aa"
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dist target/apidocs
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist target/apidocs
 
 
 # Invoke jobs via workflows
