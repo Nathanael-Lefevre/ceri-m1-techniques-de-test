@@ -13,14 +13,25 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class PokedexTest implements IPokedexTest {
-    IPokedex mPokedex;
-    List<Pokemon> mPokemonList;
-    Pokemon pokemon0;
-    Pokemon pokemon1;
-    Pokemon pokemon2;
+    private IPokedex mPokedex;
+    private List<Pokemon> mPokemonList;
+    private Pokemon pokemon0;
+    private Pokemon pokemon1;
+    private Pokemon pokemon2;
+
+    @Before
+    public void initNonMock() {
+        mPokemonList = new ArrayList<>();
+        pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
+        pokemon1 = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 1.);
+        pokemon2 = new Pokemon(6, "Carapuce", 44, 65, 0, 3310, 202, 5000, 4, 1.);
+
+        mPokedex = new Pokedex(new PokemonMetadataProvider(), new PokemonFactory(new PokemonMetadataProvider()));
+    }
+
 
     @Override
-    @Before
+    //@Before
     public void init() throws PokedexException {
         mPokemonList = new ArrayList<>();
         pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);

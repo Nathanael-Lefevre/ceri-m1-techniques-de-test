@@ -12,14 +12,22 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
-    @Mock IPokedexFactory mPokedexFactory;
-    @Mock IPokemonTrainerFactory mPokemonTrainerFactory;
-    @Mock IPokedex mPokedex;
+    @Mock private IPokedexFactory mPokedexFactory;
+    @Mock private IPokemonTrainerFactory mPokemonTrainerFactory;
+    @Mock private IPokedex mPokedex;
 
-    Team mTeam;
+    private Team mTeam;
+
+    @Before
+    public void initNonMock() {
+        mPokemonTrainerFactory = new PokemonTrainerFactory();
+        mPokedexFactory = new PokedexFactory();
+
+        mTeam = Team.INSTINCT;
+    }
 
     @Override
-    @Before
+    //@Before
     public void init() throws PokedexException {
         mPokedexFactory = Mockito.mock(IPokedexFactory.class);
         mPokemonTrainerFactory = Mockito.mock(IPokemonTrainerFactory.class);
@@ -28,18 +36,16 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
         mTeam = Team.INSTINCT;
 
         when(mPokemonTrainerFactory.createTrainer(anyString(), eq(mTeam), eq(mPokedexFactory))).then(
-                new Answer<PokemonTrainer>() {
-                    public PokemonTrainer answer(InvocationOnMock invocation) {
-                        String name = invocation.getArgument(0);
-                        return new PokemonTrainer(name, mTeam, mPokedex);
-                    }
+                (Answer<PokemonTrainer>) invocation -> {
+                    String name = invocation.getArgument(0);
+                    return new PokemonTrainer(name, mTeam, mPokedex);
                 });
     }
 
     @Override
     @Test
     public void testShouldReturnTrainer() {
-        Assert.assertTrue(mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory) instanceof PokemonTrainer);
+        Assert.assertNotNull(mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory));
     }
 
     @Override
@@ -61,7 +67,7 @@ public class PokemonTrainerFactoryTest implements IPokemonTrainerFactoryTest{
     @Test
     public void testShouldReturnPokedex() {
         PokemonTrainer pokemonTrainer = mPokemonTrainerFactory.createTrainer("name", mTeam, mPokedexFactory);
-        Assert.assertTrue(pokemonTrainer.getPokedex() instanceof IPokedex);
+        Assert.assertNotNull(pokemonTrainer.getPokedex());
     }
 
 

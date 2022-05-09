@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 
 public class PokemonMetadataProviderTest implements IPokemonMetadataProviderTest {
 
-    PokemonMetadata metadata0;
-    PokemonMetadata metadata1;
+    private PokemonMetadata metadata0;
+    private PokemonMetadata metadata1;
 
     @Mock
     private IPokemonMetadataProvider mPokemonMetadataProvider;

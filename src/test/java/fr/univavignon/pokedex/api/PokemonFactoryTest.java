@@ -11,10 +11,10 @@ import static org.mockito.Mockito.when;
 
 public class PokemonFactoryTest implements IPokemonFactoryTest{
     @Mock
-    IPokemonFactory mPokemonFactory;
+    private IPokemonFactory mPokemonFactory;
 
-    PokemonMetadata metadata0;
-    Pokemon pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
+    private PokemonMetadata metadata0;
+    private Pokemon pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
 
     @Before
     public void initNonMock() {
@@ -29,7 +29,7 @@ public class PokemonFactoryTest implements IPokemonFactoryTest{
         metadata0 = new PokemonMetadata(0, "Bulbizarre", 126, 126, 90);
         //pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
 
-        when(mPokemonFactory.createPokemon(0, 613, 64, 4000, 4)).then(
+        when(mPokemonFactory).then(
                 (Answer<Pokemon>) invocation -> {
                     String name = metadata0.getName();
                     int attack = metadata0.getAttack();
