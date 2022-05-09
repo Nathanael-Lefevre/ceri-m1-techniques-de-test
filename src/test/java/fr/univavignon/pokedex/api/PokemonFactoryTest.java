@@ -70,4 +70,10 @@ public class PokemonFactoryTest implements IPokemonFactoryTest{
             Assert.assertTrue(actualPokemon.getIv() >= 0 && actualPokemon.getIv() <= 1);
         }
     }
+
+    @Override
+    @Test
+    public void testShouldThrowPokedexException() {
+        Assert.assertNull(mPokemonFactory.createPokemon(-1, 613, 64, 4000, 4));
+    }
 }

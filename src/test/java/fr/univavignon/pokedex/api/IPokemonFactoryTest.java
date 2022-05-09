@@ -12,4 +12,7 @@ public interface IPokemonFactoryTest {
 
     @Test
     public void testShouldReturnPokemonWithCorrectStats();
+
+    @Test
+    public void testShouldThrowPokedexException();
 }
