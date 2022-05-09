@@ -42,18 +42,18 @@ jobs:
           name: Checkstyle
           command: mvn site
 
-    # job 3
-    docs-build:
-      docker:
-        - image: cimg/openjdk:15.0
-      steps:
-        # javadoc
-        - run:
-            name: Javadoc
-            command: mvn install
-        - persist_to_workspace:
-            root: target/apidocs
-            paths: html
+  # job 3
+  docs-build:
+    docker:
+      - image: cimg/openjdk:15.0
+    steps:
+      # javadoc
+      - run:
+          name: Javadoc
+          command: mvn install
+      - persist_to_workspace:
+          root: target/apidocs
+          paths: html
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
