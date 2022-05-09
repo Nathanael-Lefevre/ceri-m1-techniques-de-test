@@ -35,6 +35,6 @@ public class PokedexFactoryTest implements IPokedexFactoryTest {
     @Override
     @Test
     public void testShouldReturnPokedex() {
-        Assert.assertTrue(mPokedexFactory.createPokedex(mMetadataProvider, mPokemonFactory) instanceof IPokedex);
+        Assert.assertNotNull(mPokedexFactory.createPokedex(mMetadataProvider, mPokemonFactory));
     }
 }
