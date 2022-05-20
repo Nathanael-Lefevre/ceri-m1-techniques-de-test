@@ -11,7 +11,7 @@ public interface IPokemonFactoryTest {
     void testShouldReturnPokemon();
 
     @Test
-    void testShouldReturnPokemonWithCorrectStats();
+    void testShouldReturnPokemonWithCorrectStats() throws PokedexException;
 
     @Test
     void testShouldReturnNullWhenPokedexException();

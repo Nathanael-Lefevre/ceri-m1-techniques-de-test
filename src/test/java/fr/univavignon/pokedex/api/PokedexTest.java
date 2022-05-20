@@ -3,6 +3,7 @@ package fr.univavignon.pokedex.api;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -13,8 +14,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class PokedexTest implements IPokedexTest {
-    private IPokedex mPokedex;
-    private List<Pokemon> mPokemonList;
+    @Mock private IPokedex mPokedex;
+    @Mock private List<Pokemon> mPokemonList;
+    @Mock private IPokemonMetadataProvider mMetadataProvider;
     private Pokemon pokemon0;
     private Pokemon pokemon1;
     private Pokemon pokemon2;
@@ -24,17 +26,20 @@ public class PokedexTest implements IPokedexTest {
     @Before
     public void initNonMock() {
         mPokemonList = new ArrayList<>();
+        mMetadataProvider = new PokemonMetadataProvider();
         pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
         pokemon1 = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 1.);
         pokemon2 = new Pokemon(6, "Carapuce", 44, 65, 0, 3310, 202, 5000, 4, 1.);
 
-        mPokedex = new Pokedex(new PokemonMetadataProvider(), new PokemonFactory(new PokemonMetadataProvider()));
+        //mPokedex = new Pokedex(new PokemonMetadataProvider(), new PokemonFactory(new PokemonMetadataProvider()));
+        mPokedex = new Pokedex(new PokemonMetadataProvider(), new RocketPokemonFactory());
     }
 
 
     @Override
     //@Before
     public void init() throws PokedexException {
+        mMetadataProvider = Mockito.mock(IPokemonMetadataProvider.class);
         mPokemonList = new ArrayList<>();
         pokemon0 = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, .56);
         pokemon1 = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 1.);
@@ -44,6 +49,8 @@ public class PokedexTest implements IPokedexTest {
         metadata1 = new PokemonMetadata(133, "Aquali", 186, 168, 260);
 
         mPokedex = Mockito.mock(IPokedex.class);
+
+        when(mMetadataProvider.getPokemonMetadata(0)).thenReturn(metadata0);
 
         when(mPokedex.getPokemonMetadata(any(Integer.class))).then(
                 invocation -> {
@@ -152,16 +159,28 @@ public class PokedexTest implements IPokedexTest {
 
     @Override
     @Test
-    public void testShouldReturnPokemonWithCorrectStats() {
+    public void testShouldReturnPokemonWithCorrectStats() throws PokedexException {
         Pokemon actualPokemon;
         for (int i = 0; i < 3; i++) {
-            actualPokemon = mPokedex.createPokemon(0, 613, 64, 4000, 4);
+            actualPokemon = mPokedex.createPokemon(
+                    pokemon0.getIndex(),
+                    pokemon0.getCp(),
+                    pokemon0.getHp(),
+                    pokemon0.getDust(),
+                    pokemon0.getCandy());
+            PokemonMetadata metadata = mMetadataProvider.getPokemonMetadata(0);
 
-            Assert.assertEquals(pokemon0.getIndex(), actualPokemon.getIndex());
-            Assert.assertEquals(pokemon0.getName(), actualPokemon.getName());
-            Assert.assertTrue(actualPokemon.getAttack() - pokemon0.getAttack() <= 15);
-            Assert.assertTrue(actualPokemon.getDefense() - pokemon0.getDefense() <= 15);
-            Assert.assertTrue(actualPokemon.getStamina() - pokemon0.getStamina() <= 15);
+            Assert.assertEquals(0, actualPokemon.getIndex());
+            Assert.assertEquals(metadata.getName(), actualPokemon.getName());
+            Integer attackDiff = actualPokemon.getAttack() - metadata.getAttack();
+            Assert.assertTrue( attackDiff >= 0 && attackDiff <= 15);
+
+            Integer defenseDiff = actualPokemon.getDefense() - metadata.getDefense();
+            Assert.assertTrue( defenseDiff >= 0 && defenseDiff <= 15);
+
+            Integer staminaDiff = actualPokemon.getStamina() - metadata.getStamina();
+            Assert.assertTrue( staminaDiff >= 0 && staminaDiff <= 15);
+
             Assert.assertEquals(pokemon0.getCp(), actualPokemon.getCp());
             Assert.assertEquals(pokemon0.getHp(), actualPokemon.getHp());
             Assert.assertEquals(pokemon0.getDust(), actualPokemon.getDust());

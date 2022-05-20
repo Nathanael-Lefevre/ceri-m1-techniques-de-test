@@ -50,5 +50,5 @@ public interface IPokedexTest extends IPokemonMetadataProviderTest, IPokemonFact
     void testSortedPokemonListShouldNotBeModifiable();
 
     @Test
-    void testShouldReturnPokemonWithCorrectStats();
+    void testShouldReturnPokemonWithCorrectStats() throws PokedexException;
 }

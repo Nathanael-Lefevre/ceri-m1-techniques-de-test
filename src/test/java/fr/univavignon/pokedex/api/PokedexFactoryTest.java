@@ -20,7 +20,8 @@ public class PokedexFactoryTest implements IPokedexFactoryTest {
     public void initNonMock() {
         mPokedexFactory = new PokedexFactory();
         mMetadataProvider = new PokemonMetadataProvider();
-        mPokemonFactory = new PokemonFactory(mMetadataProvider);
+        //mPokemonFactory = new PokemonFactory(mMetadataProvider);
+        mPokemonFactory = new RocketPokemonFactory();
     }
 
     @Override
